@@ -1,0 +1,27 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongo
+  namespace: disconnected
+  labels:
+    app: mongo
+    app.kubernetes.io/component: mongo
+    app.kubernetes.io/instance: mongo
+    app.kubernetes.io/name: mongo
+    app.kubernetes.io/part-of: mongo-app
+    app.openshift.io/runtime-version: latest
+  annotations:
+spec:
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: 27017-tcp
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+  internalTrafficPolicy: Cluster
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: mongo
+    deployment: mongo
